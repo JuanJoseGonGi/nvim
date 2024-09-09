@@ -35,7 +35,6 @@ return {
                 "biome",
                 "gopls",
                 "lua_ls",
-                "tsserver",
                 "volar",
             },
             handlers = {
