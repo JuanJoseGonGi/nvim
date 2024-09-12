@@ -56,13 +56,17 @@ return {
                     }
                 end,
                 ["tsserver"] = function()
-                    local mason_registry = require('mason-registry')
-                    local vuels_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+                    local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
+                    local vuels_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
 
                     local lspconfig = require('lspconfig')
 
                     lspconfig.tsserver.setup {
                         capabilities = capabilities,
+                        root_dir = lspconfig.util.root_pattern(
+                            "tsconfig.json",
+                            "package.json"
+                        ),
                         init_options = {
                             plugins = {
                                 {
@@ -72,7 +76,61 @@ return {
                                 }
                             }
                         },
-                        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+                        settings = {
+                            typescript = {
+                                inlayHints = {
+                                    includeInlayParameterNameHints = "all",
+                                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                                    includeInlayFunctionParameterTypeHints = true,
+                                    includeInlayVariableTypeHints = true,
+                                    includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                                    includeInlayPropertyDeclarationTypeHints = true,
+                                    includeInlayFunctionLikeReturnTypeHints = true,
+                                    includeInlayEnumMemberValueHints = true,
+                                },
+                            },
+                        },
+                    }
+                end,
+                ["volar"] = function()
+                    local lspconfig = require('lspconfig')
+
+                    lspconfig.volar.setup {
+                        capabilities = capabilities,
+                        root_dir = lspconfig.util.root_pattern(
+                            "vite.config.ts",
+                            "vite.config.js"
+                        ),
+                        init_options = {
+                            vue = {
+                                hybridMode = false,
+                            },
+                            typescript = {
+                                tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+                            },
+                        },
+                        settings = {
+                            typescript = {
+                                inlayHints = {
+                                    enumMemberValues = {
+                                        enabled = true,
+                                    },
+                                    functionLikeReturnTypes = {
+                                        enabled = true,
+                                    },
+                                    propertyDeclarationTypes = {
+                                        enabled = true,
+                                    },
+                                    parameterTypes = {
+                                        enabled = true,
+                                        suppressWhenArgumentMatchesName = true,
+                                    },
+                                    variableTypes = {
+                                        enabled = true,
+                                    },
+                                },
+                            },
+                        }
                     }
                 end,
                 ["gopls"] = function()
