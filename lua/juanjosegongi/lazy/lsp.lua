@@ -31,8 +31,6 @@ return {
                 "eslint",
                 "tflint",
                 "terraformls",
-                "unocss",
-                "biome",
                 "gopls",
                 "lua_ls",
                 "volar",
@@ -58,7 +56,9 @@ return {
                     }
                 end,
                 ["tsserver"] = function()
-                    local vuels_path = '/home/juanjosegongi/.bun/install/global/node_modules/@vue/typescript-plugin'
+                    local mason_registry = require('mason-registry')
+                    local vuels_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+
                     local lspconfig = require('lspconfig')
 
                     lspconfig.tsserver.setup {
@@ -79,6 +79,7 @@ return {
                     local lspconfig = require('lspconfig')
 
                     lspconfig.gopls.setup {
+                        capabilities = capabilities,
                         settings = {
                             gopls = {
                                 codelenses = {
