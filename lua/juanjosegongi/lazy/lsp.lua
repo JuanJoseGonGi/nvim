@@ -99,7 +99,9 @@ return {
                         capabilities = capabilities,
                         root_dir = lspconfig.util.root_pattern(
                             "vite.config.ts",
-                            "vite.config.js"
+                            "vite.config.js",
+                            "nuxt.config.ts",
+                            "nuxt.config.js"
                         ),
                         init_options = {
                             vue = {
