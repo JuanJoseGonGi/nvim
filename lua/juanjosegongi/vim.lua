@@ -1,15 +1,19 @@
-vim.g.clipboard = {
-    name = 'WslClipboard',
-    copy = {
-        ['+'] = 'clip.exe',
-        ['*'] = 'clip.exe',
-    },
-    paste = {
-        ['+'] = 'pwsh.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-        ['*'] = 'pwsh.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-    },
-    cache_enabled = 0,
-}
+local os_name = vim.loop.os_uname().sysname
+
+if os_name == "Windows" then
+    vim.g.clipboard = {
+        name = 'WslClipboard',
+        copy = {
+            ['+'] = 'clip.exe',
+            ['*'] = 'clip.exe',
+        },
+        paste = {
+            ['+'] = 'pwsh.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+            ['*'] = 'pwsh.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+        },
+        cache_enabled = 0,
+    }
+end
 
 vim.g.loaded_node_provider = 0
 vim.g.loaded_ruby_provider = 0
