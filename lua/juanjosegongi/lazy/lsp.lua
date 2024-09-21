@@ -57,7 +57,7 @@ return {
                 end,
                 ["tsserver"] = function()
                     local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
-                    local vuels_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
+                    local vuels_path = mason_packages .. "/vue-language-server/node_modules/@vue/typescript-plugin"
 
                     local lspconfig = require('lspconfig')
 
@@ -65,6 +65,7 @@ return {
                         capabilities = capabilities,
                         root_dir = lspconfig.util.root_pattern(
                             "tsconfig.json",
+                            "jsconfig.json",
                             "package.json"
                         ),
                         init_options = {
@@ -72,7 +73,7 @@ return {
                                 {
                                     name = '@vue/typescript-plugin',
                                     location = vuels_path,
-                                    languages = { 'vue' },
+                                    languages = { 'vue', 'javascript', 'typescript' },
                                 }
                             }
                         },
@@ -103,6 +104,11 @@ return {
                             "nuxt.config.ts",
                             "nuxt.config.js"
                         ),
+                        filetypes = { "vue" },
+                        on_attach = function(client)
+                            client.server_capabilities.documentFormattingProvider = false
+                            client.server_capabilities.documentRangeFormattingProvider = false
+                        end,
                         init_options = {
                             vue = {
                                 hybridMode = false,
@@ -135,6 +141,17 @@ return {
                         }
                     }
                 end,
+                -- ["oxlint"] = function()
+                --     local lspconfig = require('lspconfig')
+                --
+                --     lspconfig.oxlint.setup {
+                --         capabilities = capabilities,
+                --         filetypes = { "javascript", "typescript", "vue" },
+                --         root_dir = lspconfig.util.root_pattern(
+                --             "oxlintrc.json"
+                --         ),
+                --     }
+                -- end,
                 ["gopls"] = function()
                     local lspconfig = require('lspconfig')
 
