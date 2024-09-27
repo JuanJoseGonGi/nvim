@@ -1,6 +1,7 @@
 local os_name = vim.loop.os_uname().sysname
+local is_wsl = os_name == "Linux" and string.find(vim.loop.os_uname().release, "microsoft")
 
-if os_name == "Windows" then
+if is_wsl then
     vim.g.clipboard = {
         name = 'WslClipboard',
         copy = {
