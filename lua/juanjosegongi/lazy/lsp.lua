@@ -196,6 +196,18 @@ return {
                             }
                         }
                     }
+                end,
+                ["terraformls"] = function()
+                    local lspconfig = require('lspconfig')
+
+                    lspconfig.terraformls.setup {
+                        capabilities = capabilities,
+                        root_dir = lspconfig.util.root_pattern(
+                            ".terraform",
+                            ".git"
+                        ),
+
+                    }
                 end
             }
         })
