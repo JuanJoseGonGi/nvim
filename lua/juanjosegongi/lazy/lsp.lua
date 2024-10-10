@@ -63,6 +63,9 @@ return {
 
                     lspconfig.tsserver.setup {
                         capabilities = capabilities,
+                        on_attach = function(client)
+						    client.server_capabilities.documentFormattingProvider = false
+					    end,
                         root_dir = lspconfig.util.root_pattern(
                             "tsconfig.json",
                             "jsconfig.json",
