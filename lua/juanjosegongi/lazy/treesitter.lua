@@ -8,7 +8,7 @@ return {
                 ensure_installed = {
                     "vimdoc", "javascript", "typescript", "c", "lua", "go",
                     "jsdoc", "bash", "vue", "terraform", "css", "gomod", "gosum",
-                    "vim", "regex", "markdown", "markdown_inline"
+                    "vim", "regex", "markdown", "markdown_inline", "hcl"
                 },
 
                 sync_install = false,

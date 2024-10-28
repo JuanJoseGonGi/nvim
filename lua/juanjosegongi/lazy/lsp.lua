@@ -65,6 +65,9 @@ return {
 
                     lspconfig.tsserver.setup {
                         capabilities = capabilities,
+                        on_attach = function(client)
+						    client.server_capabilities.documentFormattingProvider = false
+					    end,
                         root_dir = lspconfig.util.root_pattern(
                             "tsconfig.json",
                             "jsconfig.json",
@@ -197,6 +200,18 @@ return {
                                 directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
                             }
                         }
+                    }
+                end,
+                ["terraformls"] = function()
+                    local lspconfig = require('lspconfig')
+
+                    lspconfig.terraformls.setup {
+                        capabilities = capabilities,
+                        root_dir = lspconfig.util.root_pattern(
+                            ".terraform",
+                            ".git"
+                        ),
+
                     }
                 end
             }
