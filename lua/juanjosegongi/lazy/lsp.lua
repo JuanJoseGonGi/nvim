@@ -34,6 +34,8 @@ return {
                 "gopls",
                 "lua_ls",
                 "volar",
+                "ruff",
+                "basedpyright"
             },
             handlers = {
                 function(server_name)
