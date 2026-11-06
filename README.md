@@ -30,6 +30,21 @@ The configuration is split into two main directories for better maintainability:
 │       └── ...           # Other plugins
 ```
 
+## Requirements
+
+- Neovim 0.11.3 or newer
+- Git, a C compiler, `make`, `curl`, `tar`, `unzip`, and the `tree-sitter` CLI
+- `ripgrep` for Telescope live grep
+
+## Upstream
+
+Updates are adapted from [nvim-lua/kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
+while retaining Lazy.nvim and this modular layout. See [the sync notes](docs/upstream.md)
+for the reviewed revision and update procedure.
+
+New mappings: `<space>sc` searches commands; mini.ai uses `aa` / `ii` for the next
+around/inside textobject to avoid Neovim 0.12's incremental-selection mappings.
+
 ## Installation
 
 1. **Backup** your existing configuration:
